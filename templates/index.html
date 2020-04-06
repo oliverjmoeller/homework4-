@@ -3,9 +3,37 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<p><a href="{{ url_for('.add_pokemon')}}"> Add New </a>
+{% if pokemon %}
+<table>
+	<thead>
+		<tr></tr> No.</tr>
+		<tr>Name</tr>
+		<tr>Type 01</tr>
+		<tr>Type 02</tr>
+		<tr>Evolves Next At</tr>
+		<tr>Evolves Into </tr>
+	</thead>
 
-	<h2> This is my Flask server! </h2>
+	<tbody>
+		{% for row in pokemon %}
+		<tr>
+			<td>{{row.pokemon_no}}</td>
+			<td>{{row.pokemon_name}}</td>
+			<td>{{row.pokemon_type01}}</td>
+			<td>{{row.pokemon_type02}}</td>
+			<td>{{row.pokemon_evolve_at}}</td>
+			<td>{{row.pokemon_post_evolve}}</td>
 
-	<img src="{{ url_for('static', filename='images/flask.jpg') }}" />
+			<td>
+				<form action="{{ url_for('delete_pokemon', pokemon_no = row.pokemon_no) }}" method ="POST">
+					<input type="submit" value ="Delete"/>
+				</form>
 
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endif %}
 {% endblock %}
