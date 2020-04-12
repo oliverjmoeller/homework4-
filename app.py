@@ -1,13 +1,24 @@
 from flask import Flask
-from flask import render_template, redirect, request
+from flask import render_template, redirect, request, url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import DataRequired 
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
-import secrets
+#import secrets
+import validate_on_submit
 
-conn ="mysql+pymysql://{0}:{1}@{2}/{3}".format(secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
+dbuser = os.environ.get('DBUSER')
+dbpass = os.environ.get('DBPASS')
+dbhost = os.environ.get('DBHOST')
+dbname = os.environ.get('DBNAME')
+
+
+
+#conn ="mysql+pymysql://{0}:{1}@{2}/{3}".format(secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
+conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(dbuser, dbpass, dbhost, dbname)
+
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'SuperSecretKey'
@@ -44,7 +55,7 @@ def add_pokemon():
                                    pokemon_evolves_at = form.pokemon_evolves_at.data, pokemon_post_evolve = form.pokemon_post_evolve.data)
         db.session.add(pokemon)
         db.session.commit()
-    return redirect('/')
+        return redirect('/')
     
     return render_template("add_pokemon.html", form = form, pageTitle ='Pokemon List Homepage')
 

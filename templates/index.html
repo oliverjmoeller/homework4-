@@ -3,7 +3,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<p><a href="{{ url_for('.add_pokemon')}}"> Add New </a>
+<p><a href="{{ url_for('add_pokemon')}}"> Add New </a>
 {% if pokemon %}
 <table>
 	<thead>
