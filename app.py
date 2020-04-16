@@ -1,4 +1,3 @@
-import os 
 from flask import Flask
 from flask import render_template, redirect, request, url_for
 from flask_wtf import FlaskForm
@@ -7,8 +6,8 @@ from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
 #import secrets
+import os 
 
-#import validate_on_submit
 
 dbuser = os.environ.get('DBUSER')
 dbpass = os.environ.get('DBPASS')
