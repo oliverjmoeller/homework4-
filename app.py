@@ -7,7 +7,8 @@ from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
 #import secrets
-import validate_on_submit
+from wtforms
+#import validate_on_submit
 
 dbuser = os.environ.get('DBUSER')
 dbpass = os.environ.get('DBPASS')
