@@ -4,6 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
 from wtforms.validators import DataRequired 
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import or_
 import pymysql
 import secrets
 #import os 
@@ -103,7 +104,9 @@ def search():
         form = request.form
         search_value = form['search_string']
         search = "%{0}%".format(search_value)
-        results = omoeller_pokemon.query.filter(omoeller_pokemon.pokemon_name.like(search)).all()
+        results = omoeller_pokemon.query.filter(or_(omoeller_pokemon.pokemon_name.like(search),
+                                                        omoeller_pokemon.pokemon_type01.like(search),
+                                                        omoeller_pokemon.pokemon_type02.like(search))).all()
         return render_template('index.html', pokemon=results, pageTitle="Pokemon", legend = "Search Results")
     else:
         return redirect("/")
