@@ -74,7 +74,8 @@ def delete_pokemon(pokemon_no):
 @app.route('/pokemon/<int:pokemon_no>', methods=['GET','POST'])
 def get_pokemon(pokemon_no):
     pokemon = omoeller_pokemon.query.get_or_404(pokemon_no)
-    return render_template('pokemon.html', form = pokemon, pageTitle='Pokemon Details', legend = 'Pokemon Details')
+    return render_template('pokemon.html', form = pokemon, pageTitle='Pokemon', legend = 'Pokemon')
+
 
 @app.route('/pokemon/<int:pokemon_no>/update', methods=['GET','POST'])
 def update_pokemon(pokemon_no):
@@ -96,6 +97,16 @@ def update_pokemon(pokemon_no):
     form.pokemon_post_evolve.data = pokemon.pokemon_post_evolve
     return render_template('update_pokemon.html', form = form, pageTitle = 'Update Pokemon', legend ='Update A Pokemon')
 
+@app.route('/search', methods={'GET', 'POST'})
+def search():
+    if request.method =='POST':
+        form = request.form
+        search_value = form['search_string']
+        search = "%{0}%".format(search_value)
+        results = omoeller_pokemon.query.filter(omoeller_pokemon.pokemon_name.like(search)).all()
+        return render_template('index.html', pokemon=results, pageTitle="Pokemon", legend = "Search Results")
+    else:
+        return redirect("/")
 
 if __name__ == '__main__':
     app.run(debug=True)
