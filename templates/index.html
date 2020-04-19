@@ -18,7 +18,7 @@
 	<tbody>
 		{% for row in pokemon %}
 		<tr>
-			<td>{{row.pokemon_no}}</td>
+
 			<td>{{row.pokemon_name}}</td>
 			<td>{{row.pokemon_type01}}</td>
 			<td>{{row.pokemon_type02}}</td>
@@ -26,8 +26,8 @@
 			<td>{{row.pokemon_post_evolve}}</td>
 
 			<td>
-				<form action="{{ url_for('delete_pokemon', pokemon_no = row.pokemon_no) }}" method ="POST">
-					<input type="submit" value ="Delete"/>
+				<form action="{{ url_for('get_pokemon', pokemon_no = row.pokemon_no) }}" method ="POST">
+					<input type="submit" value ="Details"/>
 				</form>
 
 			</td>

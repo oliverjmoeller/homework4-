@@ -5,7 +5,7 @@ from wtforms import StringField
 from wtforms.validators import DataRequired 
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
-#import secrets
+import secrets
 import os 
 
 
@@ -69,6 +69,32 @@ def delete_pokemon(pokemon_no):
         return redirect("/")
     else:
         return redirect("/")
+
+@app.route('/pokemon/<int:pokemon_no', methods=['GET','POST'])
+def get_pokemon(pokemon_no):
+    pokemon = omoeller_pokemon.query.get_or_404(pokemon_no)
+    return render_template('pokemon.html', form=pokemon, pageTitle='Pokemon Details', legend = "Pokemon Details")
+
+@app.route('/pokemon/<int:pokemon_no>/update', methods=['GET','POST'])
+def update_pokemon(pokemon_no):
+    pokemon = omoeller_pokemon.querey.get_or_404(pokemon_no)
+    form - pokemonForm()
+
+    if form.validate_on_submit():
+        pokemon.pokemon_name = form.pokemon_name.data
+        pokemon.pokemon_type01 = form.pokemon_type01.data    
+        pokemon.pokemon_type02 = form.pokemon_type02.data
+        pokemon.pokemon_evolves_at = form.pokemon_evolves_at.data
+        pokemon.pokemon_post_evolve = form.pokemon_post_evolve.data
+        db.session.commit()
+        return redirect(url_for('get_pokemon', pokemon_no = pokemon.pokemon_no))
+    form.pokemon_name.data = pokemon.pokemon_name
+    form.pokemon_type01.data = pokemon.pokemon_type01
+    form.pokemon_type02.data = pokemon.pokemon_type02
+    form.pokemon_evolves_at.data = pokemon.pokemon_evolves_at
+    form.pokemon_post_evolve.data = pokemon.pokemon_post_evolve
+    return render_template('update_pokemon.html', form = form, pageTitle = 'Update Pokemon', legend ="Update A Pokemon")
+
 
 if __name__ == '__main__':
     app.run(debug=True)
