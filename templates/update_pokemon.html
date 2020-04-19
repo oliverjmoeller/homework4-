@@ -5,7 +5,7 @@
 {% block body %}
 	<div>
 		<h3>Update Pokemon</h3>
-		<form method= "POST" action="{{url_for('add_pokemon')}}">
+		<form method= "POST" action="">
 
 			{{ form.csrf_token}}
 			{{form.pokemon_name.label}} {{form.pokemon_name(size=20, readonly = true)}}
@@ -14,7 +14,7 @@
 			{{form.pokemon_evolves_at.label}} {{form.pokemon_evolves_at(size=20)}}
 			{{form.pokemon_post_evolve.label}} {{form.pokemon_post_evolve(size=20)}}
 
-			<input type = "Submit" value = "Save">
+			<input type = "submit" value = "Save">
 		</form>	
 	</div>
 {% endblock %}

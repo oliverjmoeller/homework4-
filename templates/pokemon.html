@@ -4,20 +4,23 @@
 
 {% block body %}
 	<div>
+		<p><a href="{{url_for('index')}}">HOME</a></p>
 		<h3>Pokemon</h3>
-		{% if form &}
-		<form method= "POST" action="{{url_for('add_pokemon')}}">
+		{% if form %}
+		<form method= "POST" action="">
 
 			{{form.csrf_token}}
 			{{form.pokemon_no.lable}}{{form.pokemon_no}}
-			{{form.pokemon_name.label}} {{form.pokemon_name(size=20)}}
-			{{form.pokemon_type01.label}} {{form.pokemon_type01(size=20)}}
-			{{form.pokemon_type02.label}} {{form.pokemon_type02(size=20)}}
-			{{form.pokemon_evolves_at.label}} {{form.pokemon_evolves_at(size=20)}}
-			{{form.pokemon_post_evolve.label}} {{form.pokemon_post_evolve(size=20)}}
+			{{form.pokemon_name.label}} {{form.pokemon_name}}
+			{{form.pokemon_type01.label}} {{form.pokemon_type01}}
+			{{form.pokemon_type02.label}} {{form.pokemon_type02}}
+			{{form.pokemon_evolves_at.label}} {{form.pokemon_evolves_at}}
+			{{form.pokemon_post_evolve.label}} {{form.pokemon_post_evolve}}
 
-			<input type = "UPDATE" formation="url('update_pokemon', pokemeon_no=form.pokemon_no" value = "Submit">
-			<input type = "DELETE" formation="url('delete_pokemon', pokemon_no=form.pokemon_no" value = "DELETE">
+			<input type = "submit" formaction="{{url_for('update_pokemon', pokemeon_no=form.pokemon_no)}}" value = "Update">
+			<input type = "submit" formaction="{{url_for('delete_pokemon', pokemon_no=form.pokemon_no)}}" value = "Delete">
+
 		</form>	
+		{% endif %}
 	</div>
 {% endblock %}

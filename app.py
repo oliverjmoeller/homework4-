@@ -1,23 +1,23 @@
 from flask import Flask
 from flask import render_template, redirect, request, url_for
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import StringField, IntegerField
 from wtforms.validators import DataRequired 
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
 import secrets
-import os 
+#import os 
 
 
-dbuser = os.environ.get('DBUSER')
-dbpass = os.environ.get('DBPASS')
-dbhost = os.environ.get('DBHOST')
-dbname = os.environ.get('DBNAME')
+#dbuser = os.environ.get('DBUSER')
+#dbpass = os.environ.get('DBPASS')
+#dbhost = os.environ.get('DBHOST')
+#dbname = os.environ.get('DBNAME')
 
 
 
-#conn ="mysql+pymysql://{0}:{1}@{2}/{3}".format(secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
-conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(dbuser, dbpass, dbhost, dbname)
+conn ="mysql+pymysql://{0}:{1}@{2}/{3}".format(secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
+#conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(dbuser, dbpass, dbhost, dbname)
 
 
 
@@ -36,6 +36,7 @@ class omoeller_pokemon(db.Model):
 
 
 class pokemonForm(FlaskForm):
+    pokemon_no = IntegerField('Pokemon No:')
     pokemon_name = StringField('Pokemon Name:', validators=[DataRequired()])
     pokemon_type01 = StringField('Type 1:', validators=[DataRequired()])
     pokemon_type02 = StringField('Type 2:')
@@ -70,15 +71,15 @@ def delete_pokemon(pokemon_no):
     else:
         return redirect("/")
 
-@app.route('/pokemon/<int:pokemon_no', methods=['GET','POST'])
+@app.route('/pokemon/<int:pokemon_no>', methods=['GET','POST'])
 def get_pokemon(pokemon_no):
     pokemon = omoeller_pokemon.query.get_or_404(pokemon_no)
-    return render_template('pokemon.html', form=pokemon, pageTitle='Pokemon Details', legend = "Pokemon Details")
+    return render_template('pokemon.html', form = pokemon, pageTitle='Pokemon Details', legend = 'Pokemon Details')
 
 @app.route('/pokemon/<int:pokemon_no>/update', methods=['GET','POST'])
 def update_pokemon(pokemon_no):
     pokemon = omoeller_pokemon.querey.get_or_404(pokemon_no)
-    form - pokemonForm()
+    form = pokemonForm()
 
     if form.validate_on_submit():
         pokemon.pokemon_name = form.pokemon_name.data
@@ -93,7 +94,7 @@ def update_pokemon(pokemon_no):
     form.pokemon_type02.data = pokemon.pokemon_type02
     form.pokemon_evolves_at.data = pokemon.pokemon_evolves_at
     form.pokemon_post_evolve.data = pokemon.pokemon_post_evolve
-    return render_template('update_pokemon.html', form = form, pageTitle = 'Update Pokemon', legend ="Update A Pokemon")
+    return render_template('update_pokemon.html', form = form, pageTitle = 'Update Pokemon', legend ='Update A Pokemon')
 
 
 if __name__ == '__main__':
