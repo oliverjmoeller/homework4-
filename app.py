@@ -73,14 +73,14 @@ def delete_pokemon(pokemon_no):
         return redirect("/")
 
 @app.route('/pokemon/<int:pokemon_no>', methods=['GET','POST'])
-def get_pokemon(pokemon_no):
-    pokemon = omoeller_pokemon.query.get_or_404(pokemon_no)
+def get_pokemon(x):
+    pokemon = omoeller_pokemon.query.get_or_404(x)
     return render_template('pokemon.html', form = pokemon, pageTitle='Pokemon', legend = 'Pokemon')
 
 
 @app.route('/pokemon/<int:pokemon_no>/update', methods=['GET','POST'])
 def update_pokemon(pokemon_no):
-    pokemon = omoeller_pokemon.querey.get_or_404(pokemon_no)
+    pokemon = omoeller_pokemon.query.get_or_404(pokemon_no)
     form = pokemonForm()
 
     if form.validate_on_submit():

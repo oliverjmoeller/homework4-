@@ -17,7 +17,7 @@
 			{{form.pokemon_evolves_at.label}} {{form.pokemon_evolves_at}}
 			{{form.pokemon_post_evolve.label}} {{form.pokemon_post_evolve}}
 
-			<input type = "submit" formaction="{{url_for('update_pokemon', pokemeon_no=form.pokemon_no)}}" value = "Update">
+			<input type = "submit" formaction="{{url_for('update_pokemon', x=form.pokemon_no)}}" value = "Update">
 			<input type = "submit" formaction="{{url_for('delete_pokemon', pokemon_no=form.pokemon_no)}}" value = "Delete">
 
 		</form>	
