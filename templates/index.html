@@ -3,40 +3,29 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<p><a href="{{ url_for('add_pokemon')}}"> Add New </a>
 
-
-
-<form method="POST">
-	<input type="text" autofocus="autofocus" name="search_string">
-	<input type="submit" formaction="/search" value="Search">
-</form>
-<br\>
-<br\>
-	{% if pokemon %}
-<table>
+{% if pokemon %}
+<table class="table table-hover">
 	<thead>
-		<tr></tr> No.</tr>
-		<tr>Name</tr>
-		<tr>Type 01</tr>
-		<tr>Type 02</tr>
-		<tr>Evolves Next At</tr>
-		<tr>Evolves Into </tr>
+        <tr>
+			<th scope="col">Name</th>
+			<th scope="col">Type 01</th>
+			<th scope="col">Type 02</th>
+			
+			<th scope="col">Evolves Into</th>
+    	</tr>
 	</thead>
-
 	<tbody>
-		{% for row in pokemon %}
+	{% for row in pokemon %}
 		<tr>
-			<td>{{row.pokemon_no}}</td>
-			<td>{{row.pokemon_name}}</td>
+			<td>{{row.pokemon_name}}</th>
 			<td>{{row.pokemon_type01}}</td>
 			<td>{{row.pokemon_type02}}</td>
-			<td>{{row.pokemon_evolve_at}}</td>
+			
 			<td>{{row.pokemon_post_evolve}}</td>
-
 			<td>
 				<form action="{{ url_for('get_pokemon', pokemon_no = row.pokemon_no) }}" method ="POST">
-					<input type="submit" value ="Details"/>
+					<button type="submit" class="btn btn-success">Details</button>
 				</form>
 
 			</td>
@@ -46,3 +35,4 @@
 </table>
 {% endif %}
 {% endblock %}
+

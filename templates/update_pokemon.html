@@ -8,13 +8,23 @@
 		<form method= "POST" action="">
 
 			{{ form.csrf_token}}
-			{{form.pokemon_name.label}} {{form.pokemon_name(size=20, readonly = true)}}
-			{{form.pokemon_type01.label}} {{form.pokemon_type01(size=20)}}
-			{{form.pokemon_type02.label}} {{form.pokemon_type02(size=20)}}
-			{{form.pokemon_evolves_at.label}} {{form.pokemon_evolves_at(size=20)}}
-			{{form.pokemon_post_evolve.label}} {{form.pokemon_post_evolve(size=20)}}
-
-			<input type = "submit" value = "Save">
+			<div class="form-group">
+				{{form.pokemon_name.label}}
+				{{form.pokemon_name(size=20, readonly = true)}}
+			</div>
+			<div class="form-group">
+				{{form.pokemon_type01.label}} {{form.pokemon_type01(size=20)}}
+			</div>
+			<div class="form-group">
+				{{form.pokemon_type02.label}} {{form.pokemon_type02(size=20)}}
+			</div>
+			<div class="form-group">
+				{{form.pokemon_evolves_at.label}} {{form.pokemon_evolves_at(size=20)}}
+			</div>
+			<div class="form-group">
+				{{form.pokemon_post_evolve.label}} {{form.pokemon_post_evolve(size=20)}}
+			</div>
+			<button type="submit" class="btn btn-success">Update </button>
 		</form>	
 	</div>
 {% endblock %}
